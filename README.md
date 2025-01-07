@@ -1,15 +1,13 @@
 
-### Websit Struct
+### Website Struct
 ```text
 └─ index.html
 └─ pages
     |
-    ├─ SugarEmpire.html
     ├─ HotGoldWorld.html
+    ├─ HumanLike.html
 └─ src
     |
     ├─ flag.png
+    ├─ web_avator.jpg
 ```
-
-### Target Page
-website：https://hotgold90000.github.io/sugarempire/
