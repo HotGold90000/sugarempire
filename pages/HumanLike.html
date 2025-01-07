@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大糖帝国模拟</title>
+    <title>House Like</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -126,30 +126,29 @@
     </style>
 </head>
 <body>
-<h1>大糖帝国模拟</h1>
+<h1>House Like</h1>
 <div id="main">
     <div id="map">
-        <!-- 占位地图 -->
         ${Array.from({ length: 50 * 50 }).map(() => '<div class="cell no-sugar"></div>').join('')}
     </div>
     <div>
         <canvas id="chart"></canvas>
         <div id="status">
-            <h4>状态展示</h4>
+            <h4>Status Show</h4>
             <div id="statusContent">
                 <table>
                     <thead>
                     <tr>
-                        <th>糖人ID</th>
-                        <th>位置</th>
-                        <th>含糖量</th>
-                        <th>视力</th>
-                        <th>消化能力</th>
+                        <th>Agent ID</th>
+                        <th>Location</th>
+                        <th>Sugar Num</th>
+                        <th>Vision</th>
+                        <th>Dig</th>
                     </tr>
                     </thead>
                     <tbody id="statusTableBody">
                     <tr>
-                        <td colspan="5">暂无数据</td>
+                        <td colspan="5">Empty Nothing</td>
                     </tr>
                     </tbody>
                 </table>
@@ -158,23 +157,23 @@
     </div>
 
     <div id="controls">
-        <button onclick="startSimulation()">开始模拟</button>
-        <button id="toggleSimulation" onclick="toggleSimulation()">暂停模拟</button>
-        <button onclick="resetSimulation()">重置模拟</button>
-        <button onclick="clearFlags()">清除旗子</button>
-        <label for="recoveryRate">糖恢复速度：</label>
+        <button onclick="startSimulation()">Start</button>
+        <button id="toggleSimulation" onclick="toggleSimulation()">Pause</button>
+        <button onclick="resetSimulation()">Reset</button>
+        <button onclick="clearFlags()">Clear Flags</button>
+        <label for="recoveryRate">Recover Speed：</label>
         <input type="number" id="recoveryRate" value="1" min="0" max="4">
-        <label for="segments">横坐标分段：</label>
+        <label for="segments">X Scales：</label>
         <input type="number" id="segments" value="15" min="1">
-        <label for="numAgents">初始糖人总数：</label>
+        <label for="numAgents">Init Num：</label>
         <input type="number" id="numAgents" value="500" min="1">
         <div>
-            <label for="clearDeadBodies">清除尸体：</label>
+            <label for="clearDeadBodies">Remove Deads：</label>
             <input type="checkbox" id="clearDeadBodies">
         </div>
-        <div id="roundCounter">当前轮数: 0</div>
-        <div id="totalAgents">糖人总数: 0</div>
-        <div id="totalSugar">糖量总数: 0</div>
+        <div id="roundCounter">Rounds Num: 0</div>
+        <div id="totalAgents">Agents Num: 0</div>
+        <div id="totalSugar">Sugars Num: 0</div>
     </div>
 </div>
 
@@ -307,13 +306,13 @@
         const numAgents = parseInt(document.getElementById('numAgents').value, 10);
         createAgents(numAgents);
         simulationInterval = setInterval(simulateRound, 1000);
-        document.getElementById('toggleSimulation').textContent = '暂停模拟';
+        document.getElementById('toggleSimulation').textContent = 'Pause';
     }
 
     function stopSimulation() {
         clearInterval(simulationInterval);
         simulationInterval = null;
-        document.getElementById('toggleSimulation').textContent = '继续模拟';
+        document.getElementById('toggleSimulation').textContent = 'Continue';
     }
 
     function toggleSimulation() {
@@ -327,7 +326,7 @@
     function continueSimulation() {
         if (!simulationInterval) {
             simulationInterval = setInterval(simulateRound, 1000);
-            document.getElementById('toggleSimulation').textContent = '暂停模拟';
+            document.getElementById('toggleSimulation').textContent = 'Pause';
         }
     }
 
@@ -335,9 +334,9 @@
         stopSimulation();
         agents.length = 0;
         round = 0;
-        document.getElementById('roundCounter').textContent = `当前轮数: ${round}`;
-        document.getElementById('totalAgents').textContent = `糖人总数: ${agents.length}`;
-        document.getElementById('totalSugar').textContent = `糖量总数: 0`;
+        document.getElementById('roundCounter').textContent = `Rounds Num: ${round}`;
+        document.getElementById('totalAgents').textContent = `Agents Num: ${agents.length}`;
+        document.getElementById('totalSugar').textContent = `Sugars Num: 0`;
         clearFlags()
         renderMap();
     }
@@ -414,10 +413,10 @@
         });
         recoverSugar();
         renderMap();
-        document.getElementById('roundCounter').textContent = `当前轮数: ${round}`;
-        document.getElementById('totalAgents').textContent = `糖人总数: ${agents.length}`;
+        document.getElementById('roundCounter').textContent = `Rounds Num: ${round}`;
+        document.getElementById('totalAgents').textContent = `Agents Num: ${agents.length}`;
         const totalSugar = agents.reduce((sum, agent) => sum + agent.sugar, 0);
-        document.getElementById('totalSugar').textContent = `糖量总数: ${totalSugar}`;
+        document.getElementById('totalSugar').textContent = `Sugars Num: ${totalSugar}`;
     }
 
     function consumeSugar(agent) {
@@ -459,7 +458,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '糖人数量',
+                        label: 'Agents',
                         data: sugarCounts,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
@@ -492,7 +491,6 @@
             chart.update();
         }
     }
-
     renderMap();
 </script>
 </body>
